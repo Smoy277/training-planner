@@ -1,3 +1,9 @@
+
+---
+
+## Шаблон для training_planner.py (основного файла приложения)
+
+```python
 import tkinter as tk
 from tkinter import ttk, messagebox
 from datetime import datetime
@@ -10,8 +16,6 @@ class TrainingPlanner:
         self.root.title("Training Planner")
         self.trainings = []
         self.load_data()
-
-        # Создаём виджеты
         self.create_widgets()
 
     def create_widgets(self):
@@ -48,4 +52,32 @@ class TrainingPlanner:
         self.filter_date = tk.Entry(self.root)
         self.filter_date.grid(row=6, column=1, padx=5, pady=5)
 
+
         tk.Button(self.root, text="Применить фильтры", command=self.apply_filters).grid(row=7, column=0, columnspan=2, pady=10)
+
+
+    def add_training(self):
+        date_str = self.date_entry.get()
+        training_type = self.type_entry.get()
+        duration_str = self.duration_entry.get()
+
+        if not self.validate_input(date_str, duration_str):
+            return
+
+        try:
+            duration = int(duration_str)
+            self.trainings.append({
+                "date": date_str,
+                "type": training_type,
+                "duration": duration
+            })
+            self.update_table()
+            self.clear_entries()
+            self.save_data()
+        except ValueError:
+            messagebox.showerror("Ошибка", "Длительность должна быть числом!")
+
+    def validate_input(self, date_str, duration_str):
+        try:
+            datetime.strptime(date_str, "%d.%m.%Y")
+        except ValueError:
