@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+
+# JSON data file (опционально – исключаем файл с данными, чтобы не загружать пользовательские данные в репозиторий)
+workouts.json
+
+# OS metadata
+.DS_Store
+Thumbs.db
